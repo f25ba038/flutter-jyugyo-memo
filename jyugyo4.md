@@ -5,32 +5,31 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {                       
     return Scaffold(
-      appBar: AppBar(　　　　　　　　　　　　　　　　　　　　~TextButtonについて~
-        title: Text('App Name'),　　　　　　　　　　　　　　UIの外観などを持たない平面のボタン
-      ),　　　　　　　　　　　　　　　　　　　　　　　　　　「TextButton」というクラスで用意され
-      body: Center(　　　　　　　　　　　　　　　　　　　　る。またFlutter Stdioでは「FlatButton」
-        child: Column(                                  というアイコンがTextButtonに相当する。
-          mainAxisAlignment: MainAxisAlignment.start,　　TextButton自体、ただ表示するだけでなく
-          mainAxisSize: MainAxisSize.max,　　　　　　　　　クリックすると何らかの処理を実行したり
-          crossAxisAlignment: CrossAxisAlignment.stretch,　するために利用する。
+      appBar: AppBar(　　　　　　　　　　　　　　　　　　　　
+        title: Text('App Name'),　　　　　　　　　　　　　　
+      ),　　　　　　　　　　　　　　　　　　　　　　　　　　
+      body: Center(　　　　　　　　　　　　　　　　　　　　
+        child: Column(                                  
+          mainAxisAlignment: MainAxisAlignment.start,　　
+          mainAxisSize: MainAxisSize.max,　　　　　　　　　
+          crossAxisAlignment: CrossAxisAlignment.stretch,　
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(20.0),             ~アイコンの表示~
-              child: Text(                               TextButtonにテキストを表示するには、
-                _message,　　　　　　　　　　　　　　　　　内部にTextを組み込む必要がある。つまり
-                style: TextStyle(　　　　　　　　　　　　　ウィジェットをテキストの代わりに組み込
-                  fontSize: 32.0,　　　　　　　　　　　　　むことで表示を変えることができる。
+              padding: EdgeInsets.all(20.0),             
+              child: Text(                               
+                _message,　　　　　　　　　　　　　　　　　
+                style: TextStyle(　　　　　　　　　　　　　
+                  fontSize: 32.0,　　　　　　　　　　　　　
                   fontWeight: FontWeight.w400,
                   fontFamily: "Roboto"),
               ),
-            ),　　　　　　　　　　　　　　　　　　　　　　...このプログラムでは「ぐー」「ちょき」「
-            TextButton(　　　　　　　　　　　　　　　　　　ぱー」からランダムに手を選んで表示する
-              onPressed: buttonPressed,　　　　　　　　　サンプル。「Push me!」をクリックすると、
-              child: Padding(　　　　　　　　　　　　　　　ランダムにじゃんけんの手を表示する。
-                padding: EdgeInsets.all(10.0),　　　　　またここでは_messageに、_janken..shuffle
-                child: Text(                           ()で返している。またカスケード記法を使い
-                  "Push me!",　　　　　　　　　　　　　　　元のオブジェクトからfirstで最初の要素を
-                  style: TextStyle(　　　　　　　　　　　取り出している。
+            ),　　　　　　　　　　　　　　　　　　　　　　
+            TextButton(　　　　　　　　　　　　　　　　　　
+              onPressed: buttonPressed,　　　　　　　　　、
+              child: Padding(　　　　　　　　　　　　　　　
+                padding: EdgeInsets.all(10.0),　　　　　
+                  "Push me!",　　　　　　　　　　　　　　　
+                  style: TextStyle(　　　　　　　　　　　
                     fontSize: 32.0,
                     color: const Color(0xff000000),
                     fontWeight: FontWeight.w400,
@@ -39,6 +38,15 @@ class _MyHomePageState extends State<MyHomePage> {
     void buttonPressed() {
     setState(() {
       _message = (_janken..shuffle()).first;
+     
+     これは、「ぐー」「ちょき」「ぱー」からランダムに手を選んで表示する サンプル。「Push me!」をクリックすると、ランダムにじゃんけんの手を表示する。またここでは_messageに、_janken..shuffle()で返している。またカスケード記法を使い元のオブジェクトからfirstで最初の要素を取り出している。
+
+      ~TextButtonについて~
+      　UIの外観などを持たない平面のボタン「TextButton」というクラスで用意される。またFlutter Stdioでは「FlatButton」 というアイコンがTextButtonに相当する。
+      extButton自体、ただ表示するだけでなくクリックすると何らかの処理を実行したりするために利用される
+
+      ~テキストの表示~
+       TextButtonにテキストを表示するには、内部にTextを組み込む必要がある。つまりウィジェットをテキストの代わりに組み込むことで表示を変えることができる。
 
 PaddingはTextを組み込む際に,まずPaddingというウィジェットが組み込まれ、その中にchildTextが組
 込まれている。padding自体は名前の通りパディング（余白）を表示するためのコンテナのこと。この中に
