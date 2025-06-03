@@ -1,3 +1,4 @@
+```dart
 class _MyHomePageState extends State<MyHomePage> {
   static var _message = 'ok.';
   static var _janken = <String>['グー', 'チョキ', 'パー'];

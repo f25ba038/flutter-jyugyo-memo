@@ -1,3 +1,4 @@
+```dart
 ウィジェットの基本レイアウト
 　レイアウトの作成に関して、Flutter Studioを活用する。Webブラウザは(https://flutterstdio.app/)を使う。
  Textの配置
