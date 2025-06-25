@@ -89,5 +89,22 @@ class _MyHomePageState extends State<MyHomePage> {
 ```dart
 action:<Widget>[...ウィジェットリスト...]
 ```
-actionにはウィジェットのリストを用意し、それぞれのボタンをクリックしたときの処理を用意し、更にアラートが閉じた後の処理を用意することで、選択したボタンに応じた処理を作ることができる。またいくつかのボタンを用意するときはshowDialogのあとに「Then」を入力する
+actionにはウィジェットのリストを用意し、それぞれのボタンをクリックしたときの処理を用意し、更にアラートが閉じた後の処理を用意することで、選択したボタンに応じた処理を作ることができる。またいくつかのボタンを用意するときはshowDialogのあとに「Then」を入力する。
+## SimpleDialogについて
+　ダイアログにはアラートのようなメッセージを表示するだけではなく、ユーザーに何らかの入力をしてもらうものがある。複数の項目から一つを選ぶような入力で「SimpleDialog」クラスがある。これはDialogというクラスに継承して作られたものです。
+```dart
+SimpleDialog(
+    title: ウィジェット,
+    children: [ウィジェットリスト],
+)
+```
+titleとchildrenという２つの値を用意する。titleは、タイトルのテキストなどを設定、childrenには、選択肢として表示する項目のリストを用意する(もともと通常「SimpleDoalogOption」というクラスのインスタンスを指定する)。
+## SimpleDialogOptionについて
+このクラスはSimpleDialogの選択肢の項目として使う専用のクラス。
+```dart
+SimpleDialogOption(
+    child: ウィジェット ,
+    orPressed:...処理...,
+)
+childは項目内の表示をするウィジェットを指定する。テキストを表示するだけなら、TextでOK。またダイアログを閉じた後の処理は、ShowDialogにthenメソッドをつけ、その中に記述する。
 　
