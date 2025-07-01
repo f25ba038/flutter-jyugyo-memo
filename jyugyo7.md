@@ -292,3 +292,69 @@ onTapでは_indexの値を設定した後tapTileメゾットを呼び出して�
 
 ### singleChildScrollViewについて
 singleChildScrollviewは名前の通り、一つのウィジェットを内部にもてるコンテナで、そのウィジェットの幅に応じた自動的にスクロールを表示することができる。
+```dart
+class _MyHomePageState extends State<MyHomePage> {
+
+ @override
+ Widget build(BuildContext context) {
+   return Scaffold(
+
+     appBar: AppBar(
+       title: Text('My App'),
+     ),
+
+     body: SingleChildScrollView(
+       child: Column(
+           mainAxisSize: MainAxisSize.min,
+           mainAxisAlignment: MainAxisAlignment.spaceAround,
+           children: <Widget>[
+             Container(
+               color: Colors.blue,
+               height: 120.0,
+               child: const Center(
+                 child: Text('One',
+               style: const TextStyle(fontSize: 32.0)),
+               ),
+             ),
+             Container(
+               color:Colors.white,
+               height: 120.0,
+               child: const Center(
+                 child: Text('Two',
+               style: const TextStyle(fontSize: 32.0)),
+               ),
+             ),
+             Container(
+               color: Colors.blue,
+               height: 120.0,
+               child: const Center(
+                 child: Text('Three',
+               style: const TextStyle(fontSize: 32.0)),
+               ),
+             ),
+             Container(
+               color:Colors.white,
+               height: 120.0,
+               child: const Center(
+                 child: Text('Four',
+               style: const TextStyle(fontSize: 32.0)),
+               ),
+             ),
+             Container(
+               color: Colors.blue,
+               height: 120.0,
+               child: const Center(
+                 child: Text('Five',
+               style: const TextStyle(fontSize: 32.0)),
+               ),
+             ),
+           ],
+         ),
+       ),
+   );
+ }
+
+}
+
+```
+実行すると、青と白の背景の四角い項目が5つ表示される。また全部を表示しきれない場合は、マウスで上下にドラッグすることでスクロールを表示できる。
