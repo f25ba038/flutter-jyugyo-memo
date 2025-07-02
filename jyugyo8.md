@@ -226,4 +226,143 @@ class SecondScreen extends StatelessWidget {
    
 
 #### テキストの受け渡しの流れ
-ここではテキストを入力するため、First ScreenはStatefukWidgetにし、FirstScreenStateクラスを新たに定義して画面の表示を作成している。
+ここではテキストを入力するため、First ScreenはStatefukWidgetにし、FirstScreenStateクラスを新たに定義して画面の表示を作成している。TextFieldのコントローラーとしてTextEditingControllerを作成し、TextFieldのonChangedで入力されたテキストを_inputというフィールドに保管されています。NavigatorでSecondScreenに移動するpushメゾットでは以下のように引数を用意する。
+```dart
+MaterialPageRoute(builder:(context) => SecondScreen(_input))
+```
+SecondScreen(_input)という具合に,_inputを引数に指定している。このSecondScreen側では、以下のようにしてコンストラクタを用意する
+```
+SecondScreen(this._value);
+```
+これで、_inputがそのまま_valueプロパティに代入される。
+
+### テキストによるルーティング
+あらかじめルートを表示するウィジェットの関係を定義し、ルートの値を設定することで指定のウィジェットを表示したりすることで値や変数を使って移動先のルートを指定できるようになるっといった「routes」というプロパティを使う。
+```dart
+routes:{
+  'アドレス':(context) => ウィジェット,
+  'アドレス':(context) => ウィジェット,
+  .....必要なだけ記述.....
+}
+```
+アドレスと関数を必要なだけroutes内に用意しておく。また、あらかじめアドレスと移動先のウィジェットをroutesに定義しておくことで、指定のアドレスがpushされたらそのウィジェットを表示するなどの形で処理を行うことができる。
+
+### routesによるルーティング
+```dart
+class MyApp extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Generated App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        primaryColor: const Color(0xff2196f3),
+        canvasColor: const Color(0xfffafafa),
+      ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => FirstScreen(),
+        '/second': (context) => SecondScreen('Second'),
+        '/third': (context) => SecondScreen('Third'),
+      },
+    );
+  }
+}
+
+class FirstScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
+      body: Center(
+        child:const Text('Home Screen',
+          style: const TextStyle(fontSize: 32.0),
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 1,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            label: 'Home',
+            icon: const Icon(Icons.home),
+          ),
+          BottomNavigationBarItem(
+            label: 'next',
+            icon: const Icon(Icons.navigate_next),
+          ),
+        ],
+        onTap: (int value) {
+          if (value == 1)
+            Navigator.pushNamed(context, '/second');
+        },
+      ),
+    );
+  }
+}
+
+class SecondScreen extends StatelessWidget {
+  final String _value;
+  SecondScreen(this._value);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Next"),
+      ),
+      body: Center(
+        child: Text(
+          '$_value Screen',
+          style: const TextStyle(fontSize: 32.0),
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            label: 'prev',
+            icon: const Icon(Icons.navigate_before),
+          ),
+          BottomNavigationBarItem(
+            label: '?',
+            icon: const Icon(Icons.android),
+          ),
+        ],
+        onTap: (int value) {
+          if (value == 0) Navigator.pop(context);
+          if (value == 1)
+            Navigator.pushNamed(context, '/third');
+        },
+      ),
+    );
+  }
+}
+```
+...実行することで右下のアイコンをクリックして時にFirst ScreenからSecond Screenへ、更にThird Screenへと表示が変わる。
+
+#### routesの定義
+```dart
+routes:{
+  '/':(context) => FirstScreen(),
+  '/second':(context) => SecondScreen('second'),
+  '/third':(context) => SecondScreen('Third'),
+},
+```
+ここでは、'/'というアドレスにFirstScreen,'/second'にSecondScreen,'/third'にSecondScreen(引数違い)を割り当てている。表示するウィジェットにアドレスを割り当てることで、そのアドレスの値で指定のウィジェットに表示をが切り替えられるようになる。
+```dart
+initialRoute: '/',
+```
+起動時に最初に表示されるウィジェットを指定するもので、'/'を指定することでFirstScreenが表示されるようになる。routesを利用する場合は、homeプロパティは利用しなく、必ずinitialRouteで起動用のアドレスを指定する。
+
+#### pushNamedによる表示移動
+routesを利用する場合、ページの井戸はNavigatorのpushを使わない。「pushNamed」というメゾットを使う。
+```dart
+Navigator.pushNamed(
+  context,
+  '/second',
+);
+```
+pushNamedは、引数にBuildContextとアドレスの値(String)を指定する。また指定のアドレスをroutesから検索し、それに割り当てられたウィジェットに表示が切り替わる。pushNamed部分の記述がシンプルになった分だけ、実際の移動が変わりやすくなる。そして、ウィジェットの設定などを変更してアクセスするような場合も設定ごとに異なるアドレスを割り当てることで移動を整理しやすくする。
